@@ -6,48 +6,53 @@
         <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
     </head>
-    <body onload="getPersonalGreeting()">
+    <body>
         <div id="content">
-        <h1><i>Pablo's Portfolio</i></h1>
-        <h2>Intro</h2>
-        <p>     Hi all, my name is Pablo Camara and I am a second year
-            Computer Science and Mathematics student at the
-            University of Central Florida in Orlando, Florida. I was born
-            in Ponce, Puerto Rico, but have been in Florida for the majority 
-            of my life, and absolutely love the beach as a result of it.
-            I'm currently really into practiced mindfulness through yoga
-            and mediation, which has inspired me to meet as many new people
-            as I can and brought much needed balance. In my free time I enjoy 
-            hanging out with friends, running video and board games, watching
-            anime, playing soccer, and learning cool math tricks.
-            
-        </p>
-        <h2>Some Cool Projects</h2>
-        <p>
+            <h1><i>Pablo's Portfolio</i></h1>
+            <h2>Intro</h2>
+            <p>     Hi all, my name is Pablo Camara and I am a second year
+                Computer Science and Mathematics student at the
+                University of Central Florida in Orlando, Florida. I was born
+                in Ponce, Puerto Rico, but have been in Florida for the majority 
+                of my life, and absolutely love the beach as a result of it.
+                I'm currently really into practiced mindfulness through yoga
+                and mediation, which has inspired me to meet as many new people
+                as I can and brought much needed balance. In my free time I enjoy 
+                hanging out with friends, running video and board games, watching
+                anime, playing soccer, and learning cool math tricks.
+                
+            </p>
+            <h2>Some Cool Projects</h2>
+            <p>
+                <ul style="list-style-type:disc;">
+                    <li>
+                        <h3>Trie Prediction - <i>Text Prediction in C Language</i></h3>
+                        Developed a fully functional text prediction algorithm determined by
+                        contextual co-occurence from a selected corpus using tries for
+                        efficient lookup and insertion of strings; yielding a runtime of
+                        O(k) where k is the length of an arbitrary string.
+                    </li>
+                    <li>
+                        <h3>SimpleC Compiler - <i>Compiler for a simplified version of C
+                            in C Language</i>
+                        </h3>
+                        Developed a compiler for a simplified version of C called 'SimpleC'.
+                        The compiler currently supports arithmetic, branching, looping, 
+                        parsing, and arrays.
+                    </li>
+                </ul>
+            </p>
+            <h2>Some Links</h2>
             <ul style="list-style-type:disc;">
-                <li>
-                    <h3>Trie Prediction - <i>Text Prediction in C Language</i></h3>
-                    Developed a fully functional text prediction algorithm determined by
-                    contextual co-occurence from a selected corpus using tries for
-                    efficient lookup and insertion of strings; yielding a runtime of
-                    O(k) where k is the length of an arbitrary string.
-                </li>
-                <li>
-                    <h3>SimpleC Compiler - <i>Compiler for a simplified version of C
-                        in C Language</i>
-                    </h3>
-                    Developed a compiler for a simplified version of C called 'SimpleC'.
-                    The compiler currently supports arithmetic, branching, looping, 
-                    parsing, and arrays.
-                </li>
+                <h3><li><a href="gallery.html">Gallery</a></li></h3>
+                <h3><li><a href="https://github.com/pjcamara" target="_blank">Github</a></li></h3>
+                <h3><li><a href="https://www.linkedin.com/in/pablo-camara-42879015b/" target="_blank">LinkedIn</a></li></h3>
+                <h3><li><a href="https://www.travisscott.com/" target="_blank">Just a goat.</a></li></h3>
             </ul>
-        </p>
-        <h2>Some Links</h2>
-        <ul style="list-style-type:disc;">
-            <h3><li><a href="gallery.html">Gallery</a></li></h3>
-            <h3><li><a href="https://github.com/pjcamara" target="_blank">Github</a></li></h3>
-            <h3><li><a href="https://www.linkedin.com/in/pablo-camara-42879015b/" target="_blank">LinkedIn</a></li></h3>
-            <h3><li><a href="https://www.travisscott.com/" target="_blank">Just a goat.</a></li></h3>
-        </ul>
+            <h2>The Comments Section Below</h2>
+            <p>Click here to get a FUN message:</p>
+            <button onclick="getFunMessages()">Fetch a fun message!</button>
+            <div id="message-container"></div>
+        </div>
     </body>
 </html>
