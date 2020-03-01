@@ -12,23 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+// Adds random fun message to the page.
+function addFunMessage() {
+    const funMessages =
+        ['Henlo', 'Nalonalotulonie', 'I eat rocks.'];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+    // Randomize the fun message.
+    const message = funMessages[Math.floor(Math.random() * funMessages.length)];
+    
+    // Add it to the page.
+    const messageContainer = document.getElementById('message-container');
+    messageContainer.innerText = message;
 }
 
-async function getPersonalGreeting() {
+async function getFunMessages() {
+    console.log('Fetching a fun message.');
     const response = await fetch('/data');
-    const greeting = await response.text();
-    document.getElementById('greeting-container').innerText = greeting;
+    console.log('Handling the response.');
+    const message = await response.text();
+    console.log('Adding fun message to dom: ' + message);
+    document.getElementById('message-container').innerText = message;
 }

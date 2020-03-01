@@ -14,21 +14,43 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String greeting = "<h1>Hello Pablo!</h1>";
+    private ArrayList<String> funMessages;
 
-    response.setContentType("text/html;");
-    response.getWriter().println(greeting);
-  }
+    public void init() {
+        funMessages = new ArrayList<>();
+
+        funMessages.add("Henlo");
+        funMessages.add("Nalonalotulonie");
+        funMessages.add("I eat rocks.");
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String greeting = "<h1>Hello Pablo!</h1>";
+        String message = funMessages.get((int) (Math.random() * funMessages.size()));
+        String json = convertToJson(funMessages);
+        
+
+        response.setContentType("text/html;");
+        response.getWriter().println(json);
+        response.getWriter().println(message);
+    }
+
+    // Converts ArrayList of Strings into JSON using Gson.
+    private String convertToJson(ArrayList<String> funMessages) {
+        String json = new Gson().toJson(funMessages);
+        return json;
+    }
 }
