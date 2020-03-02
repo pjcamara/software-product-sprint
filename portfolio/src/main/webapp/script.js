@@ -12,24 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Adds random fun message to the page.
-function addFunMessage() {
-    const funMessages =
-        ['Henlo', 'Nalonalotulonie', 'I eat rocks.'];
-
-    // Randomize the fun message.
-    const message = funMessages[Math.floor(Math.random() * funMessages.length)];
-    
+// Adds comment to the page.
+function addComment() {
+    // Create comment.
+    const comment;
     // Add it to the page.
-    const messageContainer = document.getElementById('message-container');
-    messageContainer.innerText = message;
+    const commentContainer = document.getElementById('comment-container');
+    commentContainer.innerText = comment;
 }
 
-async function getFunMessages() {
-    console.log('Fetching a fun message.');
+async function getCommentHistory() {
+    console.log('Fetching a comment.');
     const response = await fetch('/data');
     console.log('Handling the response.');
-    const message = await response.text();
-    console.log('Adding fun message to dom: ' + message);
-    document.getElementById('message-container').innerText = message;
+    const comment = await response.text();
+    console.log('Adding comment to dom: ' + comment);
+    document.getElementById('comment-container').innerText = comment;
 }

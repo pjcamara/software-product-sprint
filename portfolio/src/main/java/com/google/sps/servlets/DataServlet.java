@@ -20,37 +20,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+
 import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> funMessages;
-
-    public void init() {
-        funMessages = new ArrayList<>();
-
-        funMessages.add("Henlo");
-        funMessages.add("Nalonalotulonie");
-        funMessages.add("I eat rocks.");
-    }
+    private ArrayList<String> commentHistory = new ArrayList<>();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String greeting = "<h1>Hello Pablo!</h1>";
-        String message = funMessages.get((int) (Math.random() * funMessages.size()));
-        String json = convertToJson(funMessages);
-        
+        response.setContentType("application/json");
+        response.getWriter().println(convertToJson(commentHistory)); 
+    }
 
-        response.setContentType("text/html;");
-        response.getWriter().println(json);
-        response.getWriter().println(message);
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String comment = getParameter(request, "user-input", "default");
+        commentHistory.add(comment);
+        
+        response.sendRedirect("/index.html");
+    }
+
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null)
+            return defaultValue;
+        return value;
     }
 
     // Converts ArrayList of Strings into JSON using Gson.
-    private String convertToJson(ArrayList<String> funMessages) {
-        String json = new Gson().toJson(funMessages);
-        return json;
+    private String convertToJson(ArrayList<String> commentHistory) {
+        return new Gson().toJson(commentHistory);
     }
 }

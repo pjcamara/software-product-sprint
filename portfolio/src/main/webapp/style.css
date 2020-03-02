@@ -1,23 +1,28 @@
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-  height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
+    height: 250px;
 }
 
 #greeting-container {
-  margin-top: 20px;
+    margin-top: 20px;
+}
+
+#comment-form {
+    width: 150px;
+    height: 75px;
 }
 
 body {
-  background-image: url("../images/websitebackground.jpg");
-  background-repeat: no-repeat;
+    background-image: url("../images/websitebackground.jpg");
+    background-repeat: no-repeat;
 }
 
 .rotateimg90 {
-  -webkit-transform:rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
