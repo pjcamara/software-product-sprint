@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
     </head>
-    <body>
+    <body onload="getCommentHistory()">
         <div id="content">
             <h1><i>Pablo's Portfolio</i></h1>
             <h2>Intro</h2>
@@ -50,9 +50,14 @@
                 <h3><li><a href="https://www.travisscott.com/" target="_blank">Just a goat.</a></li></h3>
             </ul>
             <h2>The Comments Section Below</h2>
-            <p>Click here to get a FUN message:</p>
-            <button onclick="getFunMessages()">Fetch a fun message!</button>
-            <div id="message-container"></div>
+                <ul id="comment-history"></ul>
+            <form id="comment-form" action="/data" method="POST">
+                <p>Post a comment!</p>
+                <textarea name="user-input">Enter comment here!</textarea>
+                <br/><br/>
+                <input type="submit"/>
+                <div id="comment-container"></div>
+            </form>
         </div>
     </body>
 </html>

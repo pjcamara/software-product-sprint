@@ -14,43 +14,62 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.*;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
 import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> funMessages;
-
-    public void init() {
-        funMessages = new ArrayList<>();
-
-        funMessages.add("Henlo");
-        funMessages.add("Nalonalotulonie");
-        funMessages.add("I eat rocks.");
-    }
+    private ArrayList<Comment> commentHistory = new ArrayList<>();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String greeting = "<h1>Hello Pablo!</h1>";
-        String message = funMessages.get((int) (Math.random() * funMessages.size()));
-        String json = convertToJson(funMessages);
+        Query query = new Query("Comment");
+        DatastoreService database = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = database.prepare(query);
         
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String comment = (String)entity.getProperty("comment");
 
-        response.setContentType("text/html;");
-        response.getWriter().println(json);
-        response.getWriter().println(message);
+            Comment c = new Comment(id, comment);
+            commentHistory.add(c);
+        }
+        
+        response.setContentType("application/json");
+        response.getWriter().println(convertToJson(commentHistory));
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String comment = getParameter(request, "user-input", "default");
+        
+        DatastoreService database = DatastoreServiceFactory.getDatastoreService();
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("comment", comment);
+        database.put(commentEntity);
+
+        response.sendRedirect("/index.html");
+    }
+
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null)
+            return defaultValue;
+        return value;
     }
 
     // Converts ArrayList of Strings into JSON using Gson.
-    private String convertToJson(ArrayList<String> funMessages) {
-        String json = new Gson().toJson(funMessages);
-        return json;
+    private String convertToJson(ArrayList<Comment> commentHistory) {
+        return new Gson().toJson(commentHistory);
     }
 }
