@@ -14,33 +14,50 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.*;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
-
 import java.util.*;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private ArrayList<String> commentHistory = new ArrayList<>();
+    private ArrayList<Comment> commentHistory = new ArrayList<>();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Comment");
+        DatastoreService database = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = database.prepare(query);
+        
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String comment = (String)entity.getProperty("comment");
+
+            Comment c = new Comment(id, comment);
+            commentHistory.add(c);
+        }
+        
         response.setContentType("application/json");
-        response.getWriter().println(convertToJson(commentHistory)); 
+        response.getWriter().println(convertToJson(commentHistory));
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String comment = getParameter(request, "user-input", "default");
-        commentHistory.add(comment);
         
+        DatastoreService database = DatastoreServiceFactory.getDatastoreService();
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("comment", comment);
+        database.put(commentEntity);
+
         response.sendRedirect("/index.html");
     }
 
@@ -52,7 +69,7 @@ public class DataServlet extends HttpServlet {
     }
 
     // Converts ArrayList of Strings into JSON using Gson.
-    private String convertToJson(ArrayList<String> commentHistory) {
+    private String convertToJson(ArrayList<Comment> commentHistory) {
         return new Gson().toJson(commentHistory);
     }
 }
